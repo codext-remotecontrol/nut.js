@@ -1,18 +1,17 @@
-import { NativeAdapter } from "./adapter/native.adapter.class";
-import { Key } from "./key.enum";
-import { sleep } from "./sleep.function";
+import { NativeAdapter } from './adapter/native.adapter.class';
+import { Key } from './key.enum';
+import { sleep } from './sleep.function';
 
 type StringOrKey = string[] | Key[];
 
-const inputIsString = (input: string[] | Key[]): input is string[] => {
-  return input.every((elem: string | Key) => typeof elem === "string");
+const inputIsString = (input: any[] | string[] | Key[]): input is string[] => {
+  return input.every((elem: string | Key) => typeof elem === 'string');
 };
 
 /**
  * {@link Keyboard} class provides methods to emulate keyboard input
  */
 export class Keyboard {
-
   /**
    * Config object for {@link Keyboard} class
    */
@@ -45,12 +44,12 @@ export class Keyboard {
     return new Promise<Keyboard>(async (resolve, reject) => {
       try {
         if (inputIsString(input)) {
-          for (const char of input.join(" ").split("")) {
+          for (const char of input.join(' ').split('')) {
             await sleep(this.config.autoDelayMs);
             await this.nativeAdapter.type(char);
           }
         } else {
-          await this.nativeAdapter.click(...input as Key[]);
+          await this.nativeAdapter.click(...(input as Key[]));
         }
         resolve(this);
       } catch (e) {

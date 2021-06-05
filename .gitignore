@@ -73,7 +73,7 @@ typings/
 .serverless
 
 .vscode
-/dist/
+# /dist/
 /lib/**/*.js
 /lib/**/*.js.map
 ### macOS template
